@@ -1,2 +1,8 @@
-rootProject.name = 'monoplayground'
 include 'aurora'
+
+rootProject.name = 'monoplayground'
+rootProject.children.each { child ->
+    child.name = child.name - ~/.*\\//
+    child.buildFileName = "${child.name}.gradle"
+    print(child)
+}
