@@ -58,10 +58,11 @@ class AuroraTest {
     }
 
     private void insertRandomUser() {
-        log.info("Inserting random user...")
+        def userId = UUID.randomUUID().toString()
+        log.info("Inserting random user userId=$userId")
         def duration = measured {
             jdbi.withExtension(AuroraDao.class, { dao ->
-                def name = UUID.randomUUID().toString()
+                def name = userId
                 dao.insertUser(name)
             })
         }
