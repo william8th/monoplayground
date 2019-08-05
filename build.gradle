@@ -11,6 +11,7 @@ subprojects {
         groovyVersion = "2.5.7"
         junitVersion = "4.12"
         jdbiVersion = "3.8.2"
+        ktorVersion = "1.2.3"
     }
     
     repositories {
