@@ -1,5 +1,6 @@
 include 'aurora',
-        'ktor'
+        'ktor',
+        'coroutines'
 
 rootProject.name = 'monoplayground'
 rootProject.children.each { child ->
