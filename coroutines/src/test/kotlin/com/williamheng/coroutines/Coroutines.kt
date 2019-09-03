@@ -1,9 +1,6 @@
 package com.williamheng.coroutines
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.junit.Test
 
 class Coroutines {
@@ -52,5 +49,25 @@ class Coroutines {
             println("Hello,")
             job.join()
         }
+    }
+
+    @Test
+    fun waitRunBlocking() {
+        runBlocking {
+            val job = launch {
+                delay(1000L)
+                println("World")
+            }
+
+            val job2 = async {
+                delay(1000L)
+                println("Hello")
+            }
+
+            job.cancel()
+            println("End of runBlocking")
+        }
+
+        println("End of main")
     }
 }

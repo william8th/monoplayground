@@ -1,0 +1,4 @@
+dependencies {
+    testImplementation "io.cucumber:cucumber-groovy:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+}

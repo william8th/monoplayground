@@ -1,4 +1,4 @@
-package com.williamheng.ktor.api
+package com.williamheng.ktor.metrics.api
 
 import io.ktor.application.Application
 import io.ktor.application.call

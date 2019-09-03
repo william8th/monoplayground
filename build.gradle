@@ -12,6 +12,8 @@ subprojects {
         junitVersion = "4.12"
         jdbiVersion = "3.8.2"
         ktorVersion = "1.2.3"
+
+        cucumberVersion = "4.7.1"
     }
     
     repositories {
