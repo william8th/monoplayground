@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
+    }
+}
+
+apply plugin: "kotlin-allopen"
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
+
+dependencies {
+    implementation "org.hibernate:hibernate-core:5.4.4.Final"
+    implementation "org.postgresql:postgresql:42.2.6"
+    implementation "org.springframework.data:spring-data-commons:2.0.4.RELEASE"
+
+    testImplementation "org.zapodot:embedded-db-junit:1.1.1"
+}
