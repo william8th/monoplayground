@@ -14,7 +14,7 @@ class JdbiBean {
         def jdbi = postgres.getJdbi().installPlugins()
         jdbi.withExtension(UserDao.class, { dao ->
             dao.createTable()
-            dao.insertUser(new User("William", 123, 456))
+            dao.insertUser(new User("William", 123, 456.0))
         })
 
         def user = jdbi.withHandle { handle ->

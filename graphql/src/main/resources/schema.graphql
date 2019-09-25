@@ -1,0 +1,14 @@
+type Query {
+    members: [Member!]
+}
+
+type Member {
+    id: String!
+    name: String!
+    accounts: [Account!]
+}
+
+type Account {
+    id: String!
+    balance: Int!
+}

@@ -23,10 +23,10 @@ subprojects {
     }
 
     ext.libs = [
-            hikari: [
+            hikari     : [
                     "com.zaxxer:HikariCP:2.7.9"
             ],
-            jdbi: [
+            jdbi       : [
                     "org.jdbi:jdbi3-core:$jdbiVersion",
                     "org.jdbi:jdbi3-sqlobject:$jdbiVersion",
                     "org.jdbi:jdbi3-kotlin:$jdbiVersion"
@@ -34,6 +34,12 @@ subprojects {
             jdbiTesting: [
                     "org.jdbi:jdbi3-testing:$jdbiVersion",
                     "com.opentable.components:otj-pg-embedded:0.11.3"
+            ],
+            ktor       : [
+                    "io.ktor:ktor-server-core:$ktorVersion",
+                    "io.ktor:ktor-server-netty:$ktorVersion",
+                    "io.ktor:ktor-jackson:$ktorVersion",
+                    "io.ktor:ktor-metrics-micrometer:$ktorVersion"
             ]
     ]
 
