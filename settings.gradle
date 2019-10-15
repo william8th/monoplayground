@@ -5,7 +5,8 @@ include 'aurora',
         'hibernate',
         'jdbi-bean',
         'graphql',
-        'codility'
+        'codility',
+        'resilience4j'
 
 rootProject.name = 'monoplayground'
 rootProject.children.each { child ->
