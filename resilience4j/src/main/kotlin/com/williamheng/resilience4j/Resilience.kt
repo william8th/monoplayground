@@ -1,5 +1,6 @@
 package com.williamheng.resilience4j
 
+import io.github.resilience4j.kotlin.retry.executeSuspendFunction
 import io.github.resilience4j.retry.RetryConfig
 import io.github.resilience4j.retry.RetryRegistry
 import io.ktor.client.HttpClient
@@ -10,6 +11,7 @@ import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import java.time.Duration
+import java.util.function.Predicate
 
 fun main() {
     val resilience = Resilience()
@@ -24,36 +26,37 @@ class Resilience {
         install(JsonFeature)
     }
 
-    val retryConfig = RetryConfig.custom<HttpResponse>()
+    private val retryConfig = RetryConfig.custom<HttpResponse>()
         .maxAttempts(2)
         .waitDuration(Duration.ofMillis(1000))
         .retryOnResult { response -> response.status != HttpStatusCode.OK }
         .build()
 
-    val retryRegistry = RetryRegistry.of(retryConfig)
+    private val noResponseRetryConfig = RetryConfig.custom<Void>()
+        .maxAttempts(10)
+        .waitDuration(Duration.ofMillis(1000))
+        .retryOnException { e -> true }
+        .build()
+
+    private val retryRegistry = RetryRegistry.of(
+        mapOf(
+            "a-retry" to retryConfig,
+            "main-retry" to noResponseRetryConfig
+        )
+    )
 
     fun retry() {
-        runBlocking {
-            val retry = retryRegistry.retry("foobar")
-            retry.executeCallable {
-                val retryAttempt = retry.metrics.numberOfFailedCallsWithRetryAttempt
-
-                log.info("Retrying $retryAttempt")
-                if (retryAttempt < 10) {
-                    throw Exception("Deliberate failure")
-                }
-            }
+        val retry = retryRegistry.retry("main-retryer", "main-retry")
+        retry.executeCallable {
+            log.info("Trying")
+            throw Exception("Deliberate failure")
         }
     }
 
-    fun hitWithRetry(url: String) {
-
-        retryRegistry.retry("a-name").executeCallable {
-            runBlocking {
+    suspend fun hitWithRetry(url: String) {
+        retryRegistry.retry("a-retryer", "a-retry").executeSuspendFunction {
                 log.info("Sending GET request for /api")
                 val response = client.get<HttpResponse>(url)
-                response.content
-            }
         }
     }
 }

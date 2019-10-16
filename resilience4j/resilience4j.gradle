@@ -1,5 +1,5 @@
 dependencies {
     implementation libs.ktorClient
-    implementation "io.github.resilience4j:resilience4j-retry:1.1.0"
+    implementation libs.resilience4j
     testImplementation "com.github.tomakehurst:wiremock-jre8:2.25.0"
 }
