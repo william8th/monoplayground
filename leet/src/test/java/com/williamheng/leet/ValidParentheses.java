@@ -37,7 +37,6 @@ public class ValidParentheses {
         return stack.isEmpty();
     }
 
-
     private char closingBracket(char openingBracket) {
         if (openingBracket == '(') return ')';
         if (openingBracket == '[') return ']';
