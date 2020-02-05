@@ -1,4 +1,5 @@
 dependencies {
     implementation libs.ktor
+    implementation libs.ktorClient
     implementation "io.micrometer:micrometer-registry-prometheus:1.2.0"
 }
