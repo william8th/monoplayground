@@ -1,5 +1,8 @@
 dependencies {
     implementation libs.ktor
     implementation libs.ktorClient
+    implementation libs.jdbi
     implementation "io.micrometer:micrometer-registry-prometheus:1.2.0"
+
+    testImplementation libs.jdbiTesting
 }
