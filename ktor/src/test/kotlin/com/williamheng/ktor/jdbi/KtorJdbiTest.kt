@@ -36,7 +36,7 @@ class KtorJdbiTest {
         val syncStartTime = System.currentTimeMillis()
         names.forEach { insertUser(it) }
         val syncDuration = System.currentTimeMillis() - syncStartTime
-        println("Sync operations took $syncDuration ms")
+        println("Sync operations took $syncDuration ms") // This takes ~5s
 
         val asyncStartTime = System.currentTimeMillis()
         runBlocking(Dispatchers.IO) {
@@ -47,8 +47,7 @@ class KtorJdbiTest {
             }.awaitAll()
         }
         val asyncDuration = System.currentTimeMillis() - asyncStartTime
-
-        println("Async operations took $asyncDuration ms")
+        println("Async operations took $asyncDuration ms")  // This takes ~1.5s
     }
 
     private fun insertUser(name: String) {
