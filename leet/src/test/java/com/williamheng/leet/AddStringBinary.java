@@ -25,7 +25,7 @@ public class AddStringBinary {
                         "1001001",
                         "1101101"
                 },
-                { "11", "11", "110" }
+                {"11", "11", "110"}
         });
     }
 
@@ -64,7 +64,8 @@ public class AddStringBinary {
 
             carry /= 2;
 
-            i--; j--;
+            i--;
+            j--;
         }
 
         return result;
