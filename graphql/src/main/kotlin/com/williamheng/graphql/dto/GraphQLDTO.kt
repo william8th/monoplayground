@@ -9,3 +9,22 @@ data class Payload(
     val operationName: String?,
     val variables: Map<String, Any>? = mapOf()
 )
+
+sealed class Artifact(open val id: String)
+
+data class Book(
+    override val id: String,
+    val name: String,
+    val authorId: String
+): Artifact(id)
+
+data class Movie(
+    override val id: String,
+    val name: String,
+    val authorId: String
+): Artifact(id)
+
+data class Author(
+    val id: String,
+    val name: String
+)

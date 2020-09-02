@@ -3,9 +3,9 @@ package com.williamheng.graphql
 import com.coxautodev.graphql.tools.SchemaParser
 import com.williamheng.graphql.dto.Account
 import com.williamheng.graphql.dto.Member
+import com.williamheng.graphql.dto.Movie
 import com.williamheng.graphql.dto.Payload
-import com.williamheng.graphql.resolver.MemberResolver
-import com.williamheng.graphql.resolver.QueryResolver
+import com.williamheng.graphql.resolver.*
 import graphql.ExecutionInput
 import graphql.GraphQL
 import io.ktor.application.Application
@@ -37,9 +37,15 @@ object GraphQLApplication {
     private val accountData = data.flatMap { it.values }.flatMap { it }
     val schema = SchemaParser.newParser()
         .file("schema.graphql")
+        .dictionary(Movie::class.java)
         .resolvers(
             QueryResolver(memberData),
-            MemberResolver(accountData)
+            AccountQueryResolver(accountData),
+            MemberResolver(accountData),
+            BookQueryResolver(),
+            BookResolver(),
+            BookMutationResolver(),
+            MovieResolver()
         )
         .build()
         .makeExecutableSchema()
@@ -75,14 +81,21 @@ object GraphQLApplication {
                     .variables(payload.variables)
                     .operationName(payload.operationName)
                     .build()
+
+                val startTime = System.currentTimeMillis()
                 val result = graphQL.execute(input)
+                val duration = System.currentTimeMillis() - startTime
+                println("Query took $duration ms")
+
                 if (result.errors.isNotEmpty()) {
                     val errorMessages = result.errors.map { it.message }.toList()
                     log.error(errorMessages.toString())
                     call.respond(HttpStatusCode.InternalServerError)
                 } else {
                     val data: Any = result.getData()
-                    call.respond(HttpStatusCode.OK, data)
+
+                    data class GraphQLResponse(val data: Any)
+                    call.respond(HttpStatusCode.OK, GraphQLResponse(data))
                 }
             }
         }
