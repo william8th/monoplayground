@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.3.50"
+    id "org.jetbrains.kotlin.jvm" version "1.4.20"
 }
 
 group "com.williamheng"
@@ -27,11 +27,11 @@ dependencies {
 
 subprojects {
     ext {
-        kotlinVersion = "1.3.50"
+        kotlinVersion = "1.4.20"
         groovyVersion = "2.5.7"
         junitVersion = "4.12"
         jdbiVersion = "3.8.2"
-        ktorVersion = "1.2.3"
+        ktorVersion = "1.4.20"
 
         cucumberVersion = "4.7.1"
     }
@@ -83,11 +83,11 @@ subprojects {
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
     }
 
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
     }
 
     compileGroovy {
