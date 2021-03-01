@@ -1,14 +1,15 @@
 include 'aurora',
         'cassandra',
-        'ktor',
         'coroutines',
         'cucumber',
+        'disruptor',
+        'gatling',
+        'graphql',
+        'guice',
         'hibernate',
         'jdbi-bean',
-        'graphql',
+        'ktor',
         'leet',
-        'guice',
-        'gatling',
         'offheap'
 
 rootProject.name = 'monoplayground'
