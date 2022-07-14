@@ -6,12 +6,12 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
     }
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.4.20"
+    id "org.jetbrains.kotlin.jvm" version "1.7.10"
 }
 
 group "com.williamheng"
@@ -27,13 +27,13 @@ dependencies {
 
 subprojects {
     ext {
-        kotlinVersion = "1.4.20"
-        groovyVersion = "2.5.7"
+        kotlinVersion = "1.7.10"
+        groovyVersion = "3.0.11"
         junitVersion = "4.12"
         jdbiVersion = "3.8.2"
-        ktorVersion = "1.4.2"
+        ktorVersion = "1.6.8"
 
-        cucumberVersion = "4.7.1"
+        cucumberVersion = "6.10.4"
     }
 
     ext.libs = [
@@ -79,7 +79,7 @@ subprojects {
 
         testImplementation "junit:junit:$junitVersion"
 
-        runtime 'ch.qos.logback:logback-classic:1.2.3'
+        runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     }
 
     compileKotlin {
@@ -92,7 +92,7 @@ subprojects {
 
     compileGroovy {
         dependsOn compileKotlin
-        classpath += files(compileKotlin.destinationDir)
+        classpath += files(compileKotlin.destinationDirectory)
     }
 
 }
