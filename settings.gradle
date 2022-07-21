@@ -11,7 +11,8 @@ include 'aurora',
         'jdbi-bean',
         'ktor',
         'leet',
-        'offheap'
+        'offheap',
+        'postgres'
 
 rootProject.name = 'monoplayground'
 rootProject.children.each { child ->

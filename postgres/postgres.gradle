@@ -1,0 +1,5 @@
+dependencies {
+    implementation libs.hikari
+    implementation libs.jdbi
+    implementation "org.postgresql:postgresql:42.2.6"
+}
