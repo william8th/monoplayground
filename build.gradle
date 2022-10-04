@@ -2,7 +2,6 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
@@ -21,7 +20,6 @@ dependencies {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
     }
 }
 
@@ -30,7 +28,7 @@ subprojects {
         kotlinVersion = "1.7.10"
         groovyVersion = "3.0.11"
         junitVersion = "4.12"
-        jdbiVersion = "3.8.2"
+        jdbiVersion = "3.31.0"
         ktorVersion = "1.6.8"
 
         cucumberVersion = "6.10.4"
