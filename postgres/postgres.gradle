@@ -2,4 +2,5 @@ dependencies {
     implementation libs.hikari
     implementation libs.jdbi
     implementation "org.postgresql:postgresql:42.2.6"
+    testImplementation "com.opentable.components:otj-pg-embedded:1.0.1"
 }
