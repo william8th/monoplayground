@@ -31,7 +31,8 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
-import java.util.*
+import java.util.Random
+import java.util.UUID;
 
 
 object GraphQLApplication {
