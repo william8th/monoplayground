@@ -5,12 +5,12 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21"
     }
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.7.10"
+    id "org.jetbrains.kotlin.jvm" version "1.8.21"
 }
 
 group "com.williamheng"
@@ -25,7 +25,7 @@ dependencies {
 
 subprojects {
     ext {
-        kotlinVersion = "1.7.10"
+        kotlinVersion = "1.8.21"
         groovyVersion = "3.0.11"
         junitVersion = "4.12"
         jdbiVersion = "3.31.0"
@@ -81,16 +81,21 @@ subprojects {
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_17
     }
 
     compileTestKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_17
     }
 
     compileGroovy {
         dependsOn compileKotlin
         classpath += files(compileKotlin.destinationDirectory)
+    }
+
+    java {
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
     }
 
 }

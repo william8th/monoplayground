@@ -44,6 +44,7 @@ fun main() {
                                     close(CloseReason(CloseReason.Codes.NORMAL, "Client said BYE"))
                                 }
                             }
+                            else -> {}
                         }
                     }
                 }
