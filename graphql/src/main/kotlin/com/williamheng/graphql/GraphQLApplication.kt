@@ -5,25 +5,30 @@ import com.williamheng.graphql.dto.Account
 import com.williamheng.graphql.dto.Member
 import com.williamheng.graphql.dto.Movie
 import com.williamheng.graphql.dto.Payload
-import com.williamheng.graphql.resolver.*
+import com.williamheng.graphql.resolver.AccountQueryResolver
+import com.williamheng.graphql.resolver.BookMutationResolver
+import com.williamheng.graphql.resolver.BookQueryResolver
+import com.williamheng.graphql.resolver.BookResolver
+import com.williamheng.graphql.resolver.MemberResolver
+import com.williamheng.graphql.resolver.MovieResolver
+import com.williamheng.graphql.resolver.QueryResolver
 import graphql.ExecutionInput
 import graphql.GraphQL
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.CallLogging
-import io.ktor.features.ContentNegotiation
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.content.resource
-import io.ktor.http.content.static
-import io.ktor.jackson.jackson
-import io.ktor.request.receive
-import io.ktor.response.respond
-import io.ktor.routing.post
-import io.ktor.routing.routing
+import io.ktor.serialization.jackson.jackson
+import io.ktor.server.application.Application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
 import io.ktor.server.engine.commandLineEnvironment
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.http.content.staticResources
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.callloging.CallLogging
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
+import io.ktor.server.routing.post
+import io.ktor.server.routing.routing
 import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 import java.util.*
@@ -68,9 +73,7 @@ object GraphQLApplication {
         }
 
         routing {
-            static("graphiql") {
-                resource("/", "static/graphiql/index.html")
-            }
+            staticResources("graphiql", "static/graphiql/index.html")
 
             post("graphql") {
 
