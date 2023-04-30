@@ -1,16 +1,17 @@
 package com.williamheng.ktor.metrics
 
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
+
 import io.ktor.http.ContentType
-import io.ktor.metrics.micrometer.MicrometerMetrics
-import io.ktor.response.respondText
-import io.ktor.routing.get
-import io.ktor.routing.routing
+import io.ktor.server.application.Application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
 import io.ktor.server.engine.commandLineEnvironment
 import io.ktor.server.engine.embeddedServer
+import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.netty.Netty
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
@@ -26,27 +27,24 @@ fun main(args: Array<String>) {
 }
 
 fun Application.metrics() {
+
+    lateinit var micrometerRegistry: PrometheusMeterRegistry
+
+    install(MicrometerMetrics) {
+        micrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+        registry = micrometerRegistry as MeterRegistry
+        meterBinders = listOf(
+            ClassLoaderMetrics(),
+            JvmMemoryMetrics(),
+            JvmGcMetrics(),
+            ProcessorMetrics(),
+            JvmThreadMetrics(),
+            FileDescriptorMetrics()
+        )
+    }
     routing {
-
-        lateinit var micrometerRegistry: PrometheusMeterRegistry
-
-        install(MicrometerMetrics) {
-            micrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-            registry = micrometerRegistry as MeterRegistry
-            meterBinders = listOf(
-                ClassLoaderMetrics(),
-                JvmMemoryMetrics(),
-                JvmGcMetrics(),
-                ProcessorMetrics(),
-                JvmThreadMetrics(),
-                FileDescriptorMetrics()
-            )
-        }
-
-        routing {
-            get("/") {
-                call.respondText("Hello world", ContentType.Text.Plain)
-            }
+        get("/") {
+            call.respondText("Hello world", ContentType.Text.Plain)
         }
 
         get("/metrics") {
